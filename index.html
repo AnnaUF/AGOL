@@ -59,7 +59,7 @@
         //defining the maker style
         const simpleMarkerSymbol = {
           type: "simple-marker",
-          color: [200, 142, 200],  // dusty purple
+          color: [200, 142, 200],  // Dusty Purple
           outline: {
             color: [255, 255, 255], // White
             width: 1
@@ -92,7 +92,7 @@
          // Define a pop-up for usaeduLayer
          const popupEduusa = {
             "title": "EDUs",
-            "content": "<b>Name:</b> {INSTNM}<br><b>Total Enrollment:</b> {INSTSIZE}<br>"
+            "content": "<b>Name:</b> {NAME}<br><b>Total Enrollment:</b> {INSTSIZE}<br>"
         }
 
          //adding the const for the feature layer
@@ -100,7 +100,7 @@
           url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
           //adding the popup here
-          outFields: ["INSTNM","INSTSIZE"],
+          outFields: ["NAME","INSTSIZE"],
           popupTemplate: popupEduusa
         });
 
@@ -155,6 +155,7 @@
         //adding the feature layer to the map
         map.add(airportLayer);
 
+    });
   </script>
 
   <!-- css to make a full screen map -->
@@ -168,7 +169,7 @@
       width: 100%;
     }
   </style>
-</script>
+
 </head>
 <body>
 
