@@ -17,12 +17,22 @@
      "esri/config",
       "esri/Map",
       "esri/views/MapView",
-      //adding graphics
+
+      // adding in the modules for the graphic and graphic layer
       "esri/Graphic",
       "esri/layers/GraphicsLayer",
 
-    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer) {
-//switched to my API key
+      //adding in the module for the feature layers
+      "esri/layers/FeatureLayer",
+
+      //adding in the editor widget
+      "esri/widgets/Editor",
+      
+    "esri/widgets/Legend"
+
+// The below are grey instead of colored like the example but they seem to work the same?
+    ], function (esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
+
       esriConfig.apiKey = "AAPKf617d57521304ebbbb1ccdfe0a6ab7c9xd9_fQk7Gvm5OOYXsPIGypnSnikFVt3o8pt2rZUIIvbSRkQvtGqxioqliq8SP6xH";
       const map = new Map({
         basemap: "arcgis-topographic" // Basemap layer
@@ -34,7 +44,8 @@
           zoom: 13, // Zoom level
           container: "viewDiv" // Div element
         });
-        //note to self my layering is awful
+
+        //adding the const for the graphicslayer
         const graphicsLayer = new GraphicsLayer();
         map.add(graphicsLayer);
 
@@ -138,7 +149,52 @@
 
           labelingInfo: [airportLabels] //adding the labels 
 
-          <!-- css to make a full screen map -->
+
+        });
+
+        //adding the feature layer to the map
+        map.add(airportLayer);
+//adding the const for the feature layer
+const myAirports = new FeatureLayer({
+ url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Airports_JS_Stack_Write/FeatureServer",
+ 
+ //adding the popup here
+ outFields: ["AirportCode"],
+
+});
+
+//adding the feature layer to the map
+map.add(myAirports);
+
+    // Set the point layer's LayerInfo
+const pointInfos = {
+ layer: myAirports
+}
+// Begin Editor constructor
+const editor = new Editor({
+ view: view,
+ layerInfos: [pointInfos]
+ }); // End Editor constructor
+
+// Add the widget to the view
+view.ui.add(editor, "top-right");
+//Lengend is working, shows airports with codes
+const legend = new Legend({
+            view: view,
+            layerInfos: [
+              {
+                layer: myAirports,
+                title: "Airport Codes"
+              }
+            ]
+          });
+
+          // Add widget to the bottom right corner of the view
+          view.ui.add(legend, "bottom-right");
+});
+  </script>
+
+  <!-- css to make a full screen map -->
   <style>
     html,
     body,
@@ -149,7 +205,7 @@
       width: 100%;
     }
   </style>
-
+</script>
 </head>
 <body>
 
