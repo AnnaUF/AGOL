@@ -18,7 +18,11 @@
      "esri/config",
       "esri/Map",
       "esri/views/MapView"
-    ], function (esriConfig,Map, MapView) {
+      //adding graphics
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer",
+
+    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer) {
 //switched to my API key
       esriConfig.apiKey = "AAPKf617d57521304ebbbb1ccdfe0a6ab7c9xd9_fQk7Gvm5OOYXsPIGypnSnikFVt3o8pt2rZUIIvbSRkQvtGqxioqliq8SP6xH";
       const map = new Map({
@@ -31,6 +35,35 @@
           zoom: 13, // Zoom level
           container: "viewDiv" // Div element
         });
+        //note to self my layering is awful
+        const graphicsLayer = new GraphicsLayer();  
+map.add(graphicsLayer);
+
+  type: "point",  
+  longitude: -97.750689,    //long lat of Stevie Ray Vaughan Statue
+  latitude: 30.263098
+};
+
+const simpleMarkerSymbol = {  
+  type: "simple-marker",  
+  color: [228, 148, 226],  // Dusty Pink
+  outline: {  
+    color: [212, 51, 255], // Purple
+    width: 1
+  }  
+};
+
+const pointGraphic = new Graphic({  
+  geometry: point,  
+  symbol: simpleMarkerSymbol  
+});
+
+const pointGraphic = new Graphic({  
+  geometry: point,  
+  symbol: simpleMarkerSymbol  
+});
+
+
     });
   </script>
 
