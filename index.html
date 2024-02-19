@@ -59,7 +59,7 @@
         //defining the maker style
         const simpleMarkerSymbol = {
           type: "simple-marker",
-          color: [0, 0, 139],  // Color of blues rock
+          color: [200, 142, 200],  // dusty purple
           outline: {
             color: [255, 255, 255], // White
             width: 1
@@ -154,44 +154,7 @@
 
         //adding the feature layer to the map
         map.add(airportLayer);
-//adding the const for the feature layer
-const myAirports = new FeatureLayer({
- url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Airports_JS_Stack_Write/FeatureServer",
- 
- //adding the popup here
- outFields: ["AirportCode"],
 
-});
-
-//adding the feature layer to the map
-map.add(myAirports);
-
-    // Set the point layer's LayerInfo
-const pointInfos = {
- layer: myAirports
-}
-// Begin Editor constructor
-const editor = new Editor({
- view: view,
- layerInfos: [pointInfos]
- }); // End Editor constructor
-
-// Add the widget to the view
-view.ui.add(editor, "top-right");
-//Lengend is working, shows airports with codes
-const legend = new Legend({
-            view: view,
-            layerInfos: [
-              {
-                layer: myAirports,
-                title: "Airport Codes"
-              }
-            ]
-          });
-
-          // Add widget to the bottom right corner of the view
-          view.ui.add(legend, "bottom-right");
-});
   </script>
 
   <!-- css to make a full screen map -->
