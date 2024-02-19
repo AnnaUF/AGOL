@@ -35,31 +35,117 @@
           container: "viewDiv" // Div element
         });
         //note to self my layering is awful
-        const graphicsLayer = new GraphicsLayer();  
-map.add(graphicsLayer);
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer);
 
-  type, "point",  
-  longitude, -97.750689,    //long lat of Stevie Ray Vaughan Statue;
-  latitude, 30.263098,
+        //defining the geomeotry of the point
+        const point = { //Create a point
+          type: "point",
+          longitude: -97.750689,    //long lat of Stevie Ray Vaughan Statue
+          latitude: 30.263098 
+        };
+        
+        //defining the maker style
+        const simpleMarkerSymbol = {
+          type: "simple-marker",
+          color: [0, 0, 139],  // Color of blues rock
+          outline: {
+            color: [255, 255, 255], // White
+            width: 1
+          }
+        };
 
-const pointGraphic = new Graphic({
-  geometry: point,
-  symbol: simpleMarkerSymbol
-});
-  geometry: point,  
-  symbol: simpleMarkerSymbol  
-});
+        //defining popup properties
+        const popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
+        }
+        const attributes = {
+          Name: "Stevie Ray Vaughan Statue",
+          Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
+        }
 
-  </script>
+        //creating the point
+        const pointGraphic = new Graphic({
+          geometry: point,
+          symbol: simpleMarkerSymbol,
 
-  <!-- css to make a full screen map -->
+          //adding popup properites
+          attributes: attributes,
+          popupTemplate: popupTemplate
+        });
+         
+         //adding the point to the graphicsLayer
+         graphicsLayer.add(pointGraphic);
+
+         // Define a pop-up for usaeduLayer
+         const popupEduusa = {
+            "title": "EDUs",
+            "content": "<b>Name:</b> {INSTNM}<br><b>Total Enrollment:</b> {INSTSIZE}<br>"
+        }
+
+         //adding the const for the feature layer
+         const usaeduLayer = new FeatureLayer({
+          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+
+          //adding the popup here
+          outFields: ["INSTNM","INSTSIZE"],
+          popupTemplate: popupEduusa
+        });
+
+        //adding the feature layer to the map
+        map.add(usaeduLayer);
+
+
+        //setting up the icon
+        const airportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://sounny.github.io/agol/outline_local_airport_black_24dp.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+
+      //const to make the airport labels
+
+      const airportLabels = {
+        symbol: {
+          type: "text",
+          color: "#FFFFFF",
+          haloColor: "#5E8D74",
+          haloSize: "2px",
+          font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal"
+          }
+        },
+
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.Fac_Name"
+        }
+      };
+
+        const airportLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
+          renderer: airportRenderer,  //calling the icon
+
+          definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+
+          labelingInfo: [airportLabels] //adding the labels 
+
+          <!-- css to make a full screen map -->
   <style>
     html,
     body,
     #viewDiv {
       padding: 0;
       margin: 0;
-      height: 100%;
+      height: 100%; 
       width: 100%;
     }
   </style>
