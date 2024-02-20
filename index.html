@@ -109,7 +109,7 @@
           Name: "Austin City Limits Music Festival",
           Description: "Location of the Annual Austin City Limits Music Festival https://www.aclfestival.com/"
         };
-          // Create a graphic and add the geometry and symbol to it
+          // weird formating because when i spelled it it was red underlined? so had to copy from copilot even though it is spelled the same there? 
           var polygonGraphic = new Graphic({
             geometry: polygon,
   symbol: fillSymbol,
@@ -171,7 +171,7 @@
         const airportLayer = new FeatureLayer({
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
           renderer: airportRenderer,  //calling the icon
-          definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+          definitionExpression: "Fac_Type = 'AIRPORT' OR Fac_Type = 'Heliport'", //adding sql to filter for airports and challenge 5 heliports
           labelingInfo: [airportLabels] //adding the labels 
         });
         //adding the feature layer to the map
