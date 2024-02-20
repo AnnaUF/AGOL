@@ -113,6 +113,8 @@
           var polygonGraphic = new Graphic({
             geometry: polygon,
             symbol: fillSymbol
+            attributes: attributes,
+            popupTemplate: popupTemplate
           });
           // Create a new graphics layer and add the graphic to it
           var graphicsLayer = new GraphicsLayer();
