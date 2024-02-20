@@ -124,6 +124,18 @@
           Name: "Austin City Limits Music Festival",
           Description: "Location of the Annual Austin City Limits Music Festival"
         };
+        //creating the point
+        const pointGraphic = new Graphic({
+          geometry: point,
+          symbol: simpleMarkerSymbol,
+
+          //adding popup properites
+          attributes: attributes,
+          popupTemplate: popupTemplate
+        });
+         
+         //adding the point to the graphicsLayer
+         graphicsLayer.add(pointGraphic);
           // Create a graphic and add the geometry and symbol to it
           var polygonGraphic = new Graphic({
             geometry: polygon,
