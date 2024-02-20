@@ -77,8 +77,6 @@
          
          //adding the point to the graphicsLayer
          graphicsLayer.add(pointGraphic);
-
-        require(["esri/geometry/Polygon"], function(Polygon) {
         require([
           "esri/geometry/Polygon",
           "esri/Graphic",
@@ -89,27 +87,11 @@
             rings: [
               [-97.777995, 30.266907], // long, lat
               [-97.770489, 30.266517], // long, lat
-              [-97.775523, 30.268901]  // long, lat
               [-97.775523, 30.268901],  // long, lat
               [-97.778266, 30.266782]
             ],
             spatialReference: { wkid: 4326 }
           });
-// Create a symbol for rendering the polygon
-var fillSymbol = {
-    type: "simple-fill",
-    color: [227, 139, 79, 0.8],  // Orange, semi-transparent
-    outline: {
-      color: [255, 255, 255],
-      width: 1
-    }
-  };
-
-  // Create a graphic and add the geometry and symbol to it
-  var polygonGraphic = new Graphic({
-    geometry: polygon,
-    symbol: fillSymbol
-  });
           // Create a symbol for rendering the polygon
           var fillSymbol = {
             type: "simple-fill",
@@ -119,29 +101,28 @@ var fillSymbol = {
               width: 1
             }
           };
-
+          const popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
+        }
+          const attributes = {
+          Name: "Austin City Limits Music Festival",
+          Description: "Location of the Annual Austin City Limits Music Festival"
+        };
           // Create a graphic and add the geometry and symbol to it
           var polygonGraphic = new Graphic({
             geometry: polygon,
             symbol: fillSymbol
           });
-
-  // Create a new graphics layer and add the graphic to it
-  var graphicsLayer = new GraphicsLayer();
-  graphicsLayer.add(polygonGraphic);
           // Create a new graphics layer and add the graphic to it
           var graphicsLayer = new GraphicsLayer();
           graphicsLayer.add(polygonGraphic);
-
-  // Add the graphics layer to the map
-  map.add(graphicsLayer);
-});
           // Add the graphics layer to the map
           map.add(graphicsLayer);
         });
           // Now you can use the polygon variable in your code
         });
-
+         
          // Define a pop-up for usaeduLayer
          const popupEduusa = {
             "title": "EDUs",
