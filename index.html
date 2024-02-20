@@ -91,6 +91,21 @@
          //adding the point to the graphicsLayer
          graphicsLayer.add(pointGraphic);
 
+        require(["esri/geometry/Polygon"], function(Polygon) {
+          // Create a polygon geometry
+          var polygon = new Polygon({
+            rings: [
+              [30.266907, -97.777995], // long, lat
+              [30.266517, -97.770489], // long, lat
+              [30.268901, -97.775523]  // long, lat
+              [30.266782, -97.778266]
+            ],
+            spatialReference: { wkid: 4326 }
+          });
+
+          // Now you can use the polygon variable in your code
+        });
+         
          // Define a pop-up for usaeduLayer
          const popupEduusa = {
             "title": "EDUs",
