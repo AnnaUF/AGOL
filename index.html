@@ -160,6 +160,7 @@ graphicsLayer.add(pointGraphic);
           "width": "18px",
           "height": "18px"
         }
+
       }
 
       //const to make the airport labels
@@ -188,7 +189,7 @@ graphicsLayer.add(pointGraphic);
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
           renderer: airportRenderer,  //calling the icon
 
-          definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+          definitionExpression: "Fac_Type = 'AIRPORT' OR Fac_Type = 'HELIPORT'", //adding sql to filter for airports
 
           labelingInfo: [airportLabels] //adding the labels 
 
