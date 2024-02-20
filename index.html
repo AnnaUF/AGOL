@@ -51,14 +51,16 @@
         };
         
         //defining the maker style
+        //changed it to a square for challenge 1
         const simpleMarkerSymbol = {
-          type: "simple-marker",
-          color: [0, 0, 139],  // Color of blues rock
-          outline: {
-            color: [255, 255, 255], // White
-            width: 1
-          }
-        };
+            type: "simple-marker",
+            style: "square",
+            color: [200, 142, 200],  // Dusty Purple
+            outline: {
+              color: [255, 255, 255], // White
+              width: 1
+            }
+          };
 
         //defining popup properties
         const popupTemplate = {
@@ -82,7 +84,54 @@
          
          //adding the point to the graphicsLayer
          graphicsLayer.add(pointGraphic);
-
+//adding the point to the graphicsLayer
+graphicsLayer.add(pointGraphic);
+        require([
+          "esri/geometry/Polygon",
+          "esri/Graphic",
+          "esri/layers/GraphicsLayer"
+        ], function(Polygon, Graphic, GraphicsLayer) {
+          // Create a polygon geometry
+          var polygon = new Polygon({
+            rings: [
+              [-97.777995, 30.266907], // long, lat
+              [-97.770489, 30.266517], // long, lat
+              [-97.775523, 30.268901],  // long, lat
+              [-97.778266, 30.266782]
+            ],
+            spatialReference: { wkid: 4326 }
+          });
+          // Create a symbol for rendering the polygon
+          var fillSymbol = {
+            type: "simple-fill",
+            color: [227, 139, 79, 0.8],  // Orange, semi-transparent
+            outline: {
+              color: [255, 255, 255],
+              width: 1
+            }
+          };
+          const popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
+        }
+          const attributes = {
+          Name: "Austin City Limits Music Festival",
+          Description: "Location of the Annual Austin City Limits Music Festival https://www.aclfestival.com/"
+        };
+          // weird formating because when i spelled it it was red underlined? so had to copy from copilot even though it is spelled the same there? 
+          var polygonGraphic = new Graphic({
+            geometry: polygon,
+  symbol: fillSymbol,
+  attributes: attributes,
+  popupTemplate: popupTemplate
+});
+          // Create a new graphics layer and add the graphic to it
+          var graphicsLayer = new GraphicsLayer();
+          graphicsLayer.add(polygonGraphic);
+          // Add the graphics layer to the map
+          map.add(graphicsLayer);
+        });
+          
          // Define a pop-up for usaeduLayer
          const popupEduusa = {
             "title": "EDUs",
